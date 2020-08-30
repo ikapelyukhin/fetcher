@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'fetcher'
 
 RSpec.describe Fetcher::Request do
-
   let(:target_dir) { Dir.mktmpdir }
   let(:logger) { Logger.new('/dev/null') }
   let(:url) { 'https://example.org/test' }
@@ -12,7 +11,7 @@ RSpec.describe Fetcher::Request do
   describe '#on_body_cb' do
     context 'when errors occur while writing chunks' do
       it 'aborts the request' do
-        expect(request).to receive(:create_temp_file).and_raise("Something went wrong")
+        expect(request).to receive(:create_temp_file).and_raise('Something went wrong')
         expect(request.send(:on_body_cb, nil, nil)).to eq(:abort)
       end
     end
@@ -20,7 +19,7 @@ RSpec.describe Fetcher::Request do
 
   describe '#on_complete_cb' do
     let(:response) { instance_double('Typhoeus::Response') }
-    let(:error_message) { "Something went wrong" }
+    let(:error_message) { 'Something went wrong' }
 
     context 'when request fails without receiving a response' do
       it 'logs an error message' do

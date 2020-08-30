@@ -28,10 +28,10 @@ RSpec.describe Fetcher do
     context 'when multiple files are successfully downloaded', vcr: 'success' do
       let(:urls) do
         %w[
-        https://i.imgur.com/4MDUmlx.png
-        https://i.imgur.com/OosfKTg.png
-        https://i.imgur.com/zJDFlD9.jpg
-      ]
+          https://i.imgur.com/4MDUmlx.png
+          https://i.imgur.com/OosfKTg.png
+          https://i.imgur.com/zJDFlD9.jpg
+        ]
       end
 
       it 'files are downloaded' do
@@ -44,7 +44,7 @@ RSpec.describe Fetcher do
       it 'downloaded files have non-zero size' do
         described_class.fetch(urls: urls, target_dir: target_dir, logger: logger)
         downloaded_files.each do |path|
-          expect(File.size(path)).to satisfy("be greater than 0") { |size| size > 0 }
+          expect(File.size(path)).to satisfy('be greater than 0') { |size| size > 0 }
         end
       end
 
@@ -73,7 +73,7 @@ RSpec.describe Fetcher do
 
       it 'outputs error messages' do
         urls.each do |url|
-          expect(logger).to receive(:error).with(%r{#{url}: request failed with code})
+          expect(logger).to receive(:error).with(/#{url}: request failed with code/)
         end
 
         described_class.fetch(urls: urls, target_dir: target_dir, logger: logger)

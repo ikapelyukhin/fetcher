@@ -1,5 +1,5 @@
 require 'simplecov'
-SimpleCov.start { add_filter "/spec/" }
+SimpleCov.start { add_filter '/spec/' }
 
 if ENV['TRAVIS']
   require 'codecov'
