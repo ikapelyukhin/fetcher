@@ -1,12 +1,19 @@
 require 'typhoeus'
 require 'fetcher'
+require 'uri'
 
 module Fetcher
-  class Request < Typhoeus::Request
-    def initialize(logger, url, *args)
+  class Exception < StandardError; end
 
-      # FIXME file basename handling
-      # FIXME target dir
+  class Request < Typhoeus::Request
+    def initialize(logger, target_dir, url, *args)
+
+      uri = URI(url)
+
+      basename = File.basename(uri.path)
+      raise Fetcher::Exception.new("No file name in the URL") if basename == "/" || !basename
+
+      @target_file = File.join(target_dir, uri.host, uri.path)
 
       super(url, *args)
       @logger = logger
@@ -27,7 +34,7 @@ module Fetcher
     end
 
     def on_body_cb(chunk, response)
-      @tmp_file ||= create_tmp_file
+      @tmp_file ||= create_temp_file
       @tmp_file.write(chunk)
     rescue StandardError => e
       return :abort
@@ -36,17 +43,21 @@ module Fetcher
     def on_complete_cb(response = nil)
       @tmp_file.close if @tmp_file
 
-      # FIXME rename the tmp file
-
       if response.success?
+        dirname = File.dirname(@target_file)
+        FileUtils.mkdir_p(dirname) unless File.exist?(dirname)
+        FileUtils.mv(@tmp_file.path, @target_file)
+
         @logger.info("#{url} -- saved.")
       else
         if response.code == 0 || response.return_code != :ok
           @logger.error("%s: %s" % [ url, response.return_message ])
         else
-          @logger.error("%s: request failed with code %s" % [ url, response.code.to_s ])
+          @logger.error("%s: request failed with code %s" % [ url, response.code ])
         end
       end
+    rescue StandardError => e
+      @logger.error("%s: %s" % [ url, e ])
     ensure
       cleanup_temp_file
     end
