@@ -1,6 +1,4 @@
-require 'simplecov'
-SimpleCov.start { add_filter "/spec/" }
-
+require 'spec_helper'
 require 'fetcher'
 require 'vcr'
 require 'uri'

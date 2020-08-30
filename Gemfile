@@ -8,4 +8,5 @@ group :development, :test do
   gem 'rspec'
   gem 'vcr'
   gem 'simplecov'
+  gem 'codecov'
 end
