@@ -37,14 +37,14 @@ RSpec.describe Fetcher do
       end
 
       it 'files are downloaded' do
-        described_class.fetch(urls, target_dir, logger)
+        described_class.fetch(urls: urls, target_dir: target_dir, logger: logger)
         downloaded_files.each do |path|
           expect(File.exist?(path)).to be(true)
         end
       end
 
       it 'downloaded files have non-zero size' do
-        described_class.fetch(urls, target_dir, logger)
+        described_class.fetch(urls: urls, target_dir: target_dir, logger: logger)
         downloaded_files.each do |path|
           expect(File.size(path)).to satisfy("be greater than 0") { |size| size > 0 }
         end
@@ -55,7 +55,7 @@ RSpec.describe Fetcher do
           expect(logger).to receive(:info).with("#{url} -- saved.")
         end
 
-        described_class.fetch(urls, target_dir, logger)
+        described_class.fetch(urls: urls, target_dir: target_dir, logger: logger)
       end
     end
 
@@ -69,8 +69,7 @@ RSpec.describe Fetcher do
       end
 
       it 'target directory is empty' do
-        described_class.fetch(urls, target_dir, logger)
-
+        described_class.fetch(urls: urls, target_dir: target_dir, logger: logger)
         expect(Dir.entries(target_dir)).to eq(%w[. ..])
       end
 
@@ -79,7 +78,7 @@ RSpec.describe Fetcher do
           expect(logger).to receive(:error).with(%r{#{url}: request failed with code})
         end
 
-        described_class.fetch(urls, target_dir, logger)
+        described_class.fetch(urls: urls, target_dir: target_dir, logger: logger)
       end
     end
 
@@ -92,7 +91,7 @@ RSpec.describe Fetcher do
       end
 
       it 'target directory is empty' do
-        described_class.fetch(urls, target_dir, logger)
+        described_class.fetch(urls: urls, target_dir: target_dir, logger: logger)
 
         expect(Dir.entries(target_dir)).to eq(%w[. ..])
       end
@@ -102,7 +101,7 @@ RSpec.describe Fetcher do
           expect(logger).to receive(:error).with("#{url}: No file name in the URL")
         end
 
-        described_class.fetch(urls, target_dir, logger)
+        described_class.fetch(urls: urls, target_dir: target_dir, logger: logger)
       end
     end
   end

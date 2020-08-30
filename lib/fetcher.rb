@@ -2,8 +2,8 @@ require 'fetcher/request'
 require 'uri'
 
 module Fetcher
-  def self.fetch(urls, target_dir, logger = nil)
-    hydra = Typhoeus::Hydra.new
+  def self.fetch(urls:, target_dir:, logger: nil, max_concurrency: 10)
+    hydra = Typhoeus::Hydra.new(max_concurrency: max_concurrency)
     logger = logger || Logger.new(STDOUT)
 
     urls.each do |url|
