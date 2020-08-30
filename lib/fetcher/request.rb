@@ -11,7 +11,7 @@ module Fetcher
       uri = URI(url)
 
       basename = File.basename(uri.path)
-      raise Fetcher::Exception.new("No file name in the URL") if basename == "/" || !basename
+      raise Fetcher::Exception.new("No file name in the URL") if basename == "/" || basename.empty?
 
       @target_file = File.join(target_dir, uri.host, uri.path)
 
@@ -40,7 +40,7 @@ module Fetcher
       return :abort
     end
 
-    def on_complete_cb(response = nil)
+    def on_complete_cb(response)
       @tmp_file.close if @tmp_file
 
       if response.success?
@@ -50,10 +50,10 @@ module Fetcher
 
         @logger.info("#{url} -- saved.")
       else
-        if response.code == 0 || response.return_code != :ok
-          @logger.error("%s: %s" % [ url, response.return_message ])
-        else
+        if response.code != 0
           @logger.error("%s: request failed with code %s" % [ url, response.code ])
+        else
+          @logger.error("%s: %s" % [ url, response.return_message ])
         end
       end
     rescue StandardError => e

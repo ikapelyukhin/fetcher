@@ -1,0 +1,108 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://httpbin.org/status/403
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 403
+      message: ''
+    headers:
+      date:
+      - Sun, 30 Aug 2020 13:10:29 GMT
+      content-type:
+      - text/html; charset=utf-8
+      content-length:
+      - '0'
+      server:
+      - gunicorn/19.9.0
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-credentials:
+      - 'true'
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version: '2'
+    adapter_metadata:
+      effective_url: https://httpbin.org/status/403
+  recorded_at: Sun, 30 Aug 2020 13:10:29 GMT
+- request:
+    method: get
+    uri: https://httpbin.org/status/500
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 500
+      message: ''
+    headers:
+      date:
+      - Sun, 30 Aug 2020 13:10:29 GMT
+      content-type:
+      - text/html; charset=utf-8
+      content-length:
+      - '0'
+      server:
+      - gunicorn/19.9.0
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-credentials:
+      - 'true'
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version: '2'
+    adapter_metadata:
+      effective_url: https://httpbin.org/status/500
+  recorded_at: Sun, 30 Aug 2020 13:10:29 GMT
+- request:
+    method: get
+    uri: https://httpbin.org/status/404
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Typhoeus - https://github.com/typhoeus/typhoeus
+      Expect:
+      - ''
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      date:
+      - Sun, 30 Aug 2020 13:10:29 GMT
+      content-type:
+      - text/html; charset=utf-8
+      content-length:
+      - '0'
+      server:
+      - gunicorn/19.9.0
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-credentials:
+      - 'true'
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version: '2'
+    adapter_metadata:
+      effective_url: https://httpbin.org/status/404
+  recorded_at: Sun, 30 Aug 2020 13:10:29 GMT
+recorded_with: VCR 6.0.0

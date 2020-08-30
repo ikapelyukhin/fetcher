@@ -7,8 +7,9 @@ require 'fetcher'
 # FIXME argparser
 
 urls = %w[
-https://example.org/
-http://somewebsrv.com/img/992147.jpg
+https://i.imgur.com/4MDUmlx.png
+https://i.imgur.com/OosfKTg.png
+https://i.imgur.com/zJDFlD9.jpg
 ]
 
-Fetcher.fetch(urls)
+Fetcher.fetch(urls, './')
